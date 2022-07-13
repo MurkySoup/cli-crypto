@@ -4,7 +4,7 @@ Command-Line String Cryptography: Intended for secure encryption and movement of
 
 ## Prerequisites
 
-These utilties require Python 3.6+ (preferably 3.7+) and the following modules:
+These utilities require Python 3.6+ (preferably 3.7+) and the following modules:
 
 * sys
 * os
@@ -50,7 +50,7 @@ There are two optional environment variables that can be set to help out:
 Use at your own risk:
 * Like any security-related product, you are assuming an unknown level of potential risk and liability.
 * Neither warranty (expressed or implied) nor statement of suitability will be issued for these scripts.
-* Never use any security or cryptographic product without prior testing, knowledge of it's limitations and compliance with your preferred/required acceptance criteria.
+* Never use any security or cryptography product without prior testing, knowledge of it's limitations and compliance with your preferred/required acceptance criteria.
 
 ## Built With
 
