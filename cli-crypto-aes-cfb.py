@@ -3,9 +3,9 @@
 
 
 """
-Command Line String Crypto - 0.8.3-BETA (do not distribute)
+Command Line String Crypto - 0.8.5-BETA (do not distribute)
 By Rick Pelletier (galiagante@gmail.com), 06 April 2022
-Last Update: 17 June 2022
+Last Update: 27 September 2022
 
 Example given:
 
@@ -35,7 +35,7 @@ from Crypto import Random
 from Crypto.Cipher import AES
 
 
-def key_setup(key_string, rounds=1):
+def key_setup(key_string:str, rounds:int = 1):
   value = hashlib.sha256(key_string.encode('utf-8')).digest()
 
   for k in range(0, rounds):
@@ -44,7 +44,7 @@ def key_setup(key_string, rounds=1):
   return value
 
 
-def encrypt_string(key_string, message_string, rounds):
+def encrypt_string(key_string:str, message_string:str, rounds:int):
   private_key = key_setup(key_string, rounds)
 
   try:
@@ -58,7 +58,7 @@ def encrypt_string(key_string, message_string, rounds):
     return False
 
 
-def decrypt_string(key_string, message_string, rounds):
+def decrypt_string(key_string:str, message_string:str, rounds:int):
   private_key = key_setup(key_string, rounds)
 
   try:
@@ -78,14 +78,11 @@ if __name__ == '__main__':
   rounds = 1
 
   parser = argparse.ArgumentParser()
-
-  option_group = parser.add_argument('-k', '--key', help='key string', type=str)
-  option_group = parser.add_argument('-r', '--rounds', help='number of hash cycles to apply to key string', type=int)
-
-  command_group = parser.add_mutually_exclusive_group()
-  command_group.add_argument('-e', '--encrypt', help='string to encrypt', type=str)
-  command_group.add_argument('-d', '--decrypt', help='string to decrypt', type=str)
-
+  command_group = parser.add_mutually_exclusive_group(required=True)
+  command_group.add_argument('-e', '--encrypt', help='String to encrypt', type=str)
+  command_group.add_argument('-d', '--decrypt', help='String to decrypt', type=str)
+  option_group = parser.add_argument('-k', '--key', help='Key string', type=str)
+  option_group = parser.add_argument('-r', '--rounds', help='Number of hash cycles to apply to key string', type=int)
   args = parser.parse_args()
 
   if args.key:
