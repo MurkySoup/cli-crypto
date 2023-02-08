@@ -5,11 +5,11 @@
 """
 Command Line String Crypto - 0.8.5-BETA (do not distribute)
 By Rick Pelletier (galiagante@gmail.com), 06 April 2022
-Last Update: 27 September 2022
+Last Update: 08 Feb 2023
 
 Example given:
 
-# ./cli-crypto-aes-cfb.py -e "$(date +%FT%T.%3N%z) - West side bell tower at midnight. Bring hot dogs and jello."
+# ./cli-crypto-aes-cfb.py -e -s "$(date +%FT%T.%3N%z) - West side bell tower at midnight. Bring hot dogs and jello."
 
 Output:
 
@@ -35,7 +35,7 @@ from Crypto import Random
 from Crypto.Cipher import AES
 
 
-def key_setup(key_string:str, rounds:int = 1):
+def key_setup(key_string, rounds=1):
   value = hashlib.sha256(key_string.encode('utf-8')).digest()
 
   for k in range(0, rounds):
@@ -44,7 +44,7 @@ def key_setup(key_string:str, rounds:int = 1):
   return value
 
 
-def encrypt_string(key_string:str, message_string:str, rounds:int):
+def encrypt_string(key_string, message_string, rounds):
   private_key = key_setup(key_string, rounds)
 
   try:
@@ -58,7 +58,7 @@ def encrypt_string(key_string:str, message_string:str, rounds:int):
     return False
 
 
-def decrypt_string(key_string:str, message_string:str, rounds:int):
+def decrypt_string(key_string, message_string, rounds):
   private_key = key_setup(key_string, rounds)
 
   try:
@@ -78,11 +78,14 @@ if __name__ == '__main__':
   rounds = 1
 
   parser = argparse.ArgumentParser()
-  command_group = parser.add_mutually_exclusive_group(required=True)
-  command_group.add_argument('-e', '--encrypt', help='String to encrypt', type=str)
-  command_group.add_argument('-d', '--decrypt', help='String to decrypt', type=str)
-  option_group = parser.add_argument('-k', '--key', help='Key string', type=str)
-  option_group = parser.add_argument('-r', '--rounds', help='Number of hash cycles to apply to key string', type=int)
+
+  option_group = parser.add_argument('-k', '--key', help='key string', type=str)
+  option_group = parser.add_argument('-r', '--rounds', help='number of hash cycles to apply to key string', type=int)
+  option_group = parser.add_argument('-s', '--string', help='string to en-/de-crypt', type=str)
+  command_group = parser.add_mutually_exclusive_group()
+  command_group.add_argument('-e', '--encrypt', help='string to encrypt', action='store_true')
+  command_group.add_argument('-d', '--decrypt', help='string to decrypt', action='store_true')
+
   args = parser.parse_args()
 
   if args.key:
@@ -99,7 +102,7 @@ if __name__ == '__main__':
 
   if key_string:
     if args.encrypt:
-      encrypted_string = encrypt_string(key_string, args.encrypt, rounds)
+      encrypted_string = encrypt_string(key_string, args.string, rounds)
 
       if encrypted_string:
         print(encrypted_string)
@@ -108,7 +111,7 @@ if __name__ == '__main__':
         exit_value = 1
 
     elif args.decrypt:
-      decrypted_string = decrypt_string(key_string, args.decrypt, rounds)
+      decrypted_string = decrypt_string(key_string, args.string, rounds)
 
       if decrypted_string:
         print(decrypted_string)
@@ -119,6 +122,7 @@ if __name__ == '__main__':
     else:
       print('Use --help to see command line options')
       exit_value = 1
+
   else:
     print('No valid key string presented')
     exit_value = 1

@@ -16,7 +16,9 @@ These utilities require Python 3.6+ (preferably 3.7+) and the following modules:
 
 # How to Use
 
-These scripts are rather simple and self-explanatory:
+These scripts are rather simple and largely self-explanatory:
+
+For password (encryption key) generation:
 
 ```
 usage: argon-keygen.py [-h] -s STRING
@@ -27,18 +29,30 @@ optional arguments:
                         String to Hash
 ```
 
+Note that this script WILL NOT generate the same key string twice!
+
+Something similiar can also be accomplished via command-line interface using 'openssl':
+
 ```
-usage: cli-crypto-aes-cfb.py [-h] [-k KEY] [-r ROUNDS] [-e ENCRYPT | -d DECRYPT]
+# cat /dev/urandom | tr -dc 'a-zA-Z0-9-_@#*()_+{}|:<>?=' | fold -w 32 | head -n 1
+```
+
+Better passwords can be generated. See: https://github.com/armadillo-field-testing/adv-pwd-gen
+
+For data en/decryption operations:
+
+```
+usage: cli-crypto-aes-cfb.py [-h] [-k KEY] [-r ROUNDS] [-s STRING] [-e | -d]
 
 optional arguments:
   -h, --help            show this help message and exit
   -k KEY, --key KEY     key string
   -r ROUNDS, --rounds ROUNDS
                         number of hash cycles to apply to key string
-  -e ENCRYPT, --encrypt ENCRYPT
-                        string to encrypt
-  -d DECRYPT, --decrypt DECRYPT
-                        string to decrypt
+  -s STRING, --string STRING
+                        string to en-/de-crypt
+  -e, --encrypt         string to encrypt
+  -d, --decrypt         string to decrypt
 ```
 
 There are two optional environment variables that can be set to help out:
