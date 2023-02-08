@@ -79,12 +79,12 @@ if __name__ == '__main__':
 
   parser = argparse.ArgumentParser()
 
-  option_group = parser.add_argument('-k', '--key', help='key string', type=str)
-  option_group = parser.add_argument('-r', '--rounds', help='number of hash cycles to apply to key string', type=int)
+  option_group = parser.add_argument('-k', '--key', help='encryption key string', type=str)
+  option_group = parser.add_argument('-r', '--rounds', help='number of hash cycles to apply to encryption key string', type=int)
   option_group = parser.add_argument('-s', '--string', help='string to en-/de-crypt', type=str)
   command_group = parser.add_mutually_exclusive_group()
-  command_group.add_argument('-e', '--encrypt', help='string to encrypt', action='store_true')
-  command_group.add_argument('-d', '--decrypt', help='string to decrypt', action='store_true')
+  command_group.add_argument('-e', '--encrypt', help='enable encryption mode', action='store_true')
+  command_group.add_argument('-d', '--decrypt', help='enable decryption mode', action='store_true')
 
   args = parser.parse_args()
 

@@ -46,13 +46,13 @@ usage: cli-crypto-aes-cfb.py [-h] [-k KEY] [-r ROUNDS] [-s STRING] [-e | -d]
 
 optional arguments:
   -h, --help            show this help message and exit
-  -k KEY, --key KEY     key string
+  -k KEY, --key KEY     encryption key string
   -r ROUNDS, --rounds ROUNDS
-                        number of hash cycles to apply to key string
+                        number of hash cycles to apply to encryption key string
   -s STRING, --string STRING
                         string to en-/de-crypt
-  -e, --encrypt         string to encrypt
-  -d, --decrypt         string to decrypt
+  -e, --encrypt         enable encryption mode
+  -d, --decrypt         enable decryption mode
 ```
 
 There are two optional environment variables that can be set to help out:
