@@ -44,15 +44,16 @@ Better passwords can be generated. See: https://github.com/armadillo-field-testi
 For data en/decryption operations:
 
 ```
-usage: cli-crypto-aes-cfb.py [-h] [-k KEY] [-r ROUNDS] [-s STRING] [-e | -d]
+usage: cli-crypto-aes-cfb.py [-h] [-k KEY] [-r ROUNDS] -s STRING [-v] (-e | -d)
 
-optional arguments:
+options:
   -h, --help            show this help message and exit
   -k KEY, --key KEY     encryption key string
   -r ROUNDS, --rounds ROUNDS
                         number of hash cycles to apply to encryption key string
   -s STRING, --string STRING
                         string to en-/de-crypt
+  -v, --verbose         verbose display
   -e, --encrypt         enable encryption mode
   -d, --decrypt         enable decryption mode
 ```
