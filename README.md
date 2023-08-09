@@ -12,7 +12,9 @@ These utilities require Python 3.6+ (preferably 3.7+) and the following modules:
 * argon2 (argon2-cffi)
 * base64
 * hashlib
-* Crypto (pycrypto)
+* PyCrypto (pycryptodome)
+
+Note: Do not use the now-obsolete and unmaintained pycrypto package.
 
 # How to Use
 

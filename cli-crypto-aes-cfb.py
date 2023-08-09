@@ -54,11 +54,10 @@ def key_setup(key_string:str, rounds:int) -> bytes:
         print(e)
         return False
 
-
+      
 def encrypt_string(private_key:bytes, message_string:str) -> str:
     try:
         padded = message_string.encode('utf-8').ljust(16, b'\0')
-        iv = Random.new().read(AES.block_size)
         cipher = AES.new(private_key, AES.MODE_CFB, iv, segment_size=128)
         enc = cipher.encrypt(padded)[:len(message_string)]
 
