@@ -3,9 +3,9 @@
 
 
 """
-Command Line String Crypto - 0.9.2-BETA (do not distribute)
+Command Line String Crypto - 0.9.3-BETA (do not distribute)
 By Rick Pelletier (galiagante@gmail.com), 06 April 2022
-Last Update: 25 July 2023
+Last Update: 09 August 2023
 
 Example given:
 
@@ -33,7 +33,6 @@ from Crypto.Cipher import AES
 
 
 def key_setup(key_string: str, rounds: int = 1) -> bytes:
-
     value = hashlib.sha256(key_string.encode('utf-8')).digest()
 
     for k in range(rounds):
@@ -43,22 +42,19 @@ def key_setup(key_string: str, rounds: int = 1) -> bytes:
 
 
 def encrypt_string(key_string: str, message_string: str, rounds: int) -> str:
-
     private_key = key_setup(key_string, rounds)
 
     try:
         padded = message_string.encode('utf-8').ljust(16, b'\0')
-        iv = Random.new().read(AES.block_size)
         cipher = AES.new(private_key, AES.MODE_CFB, iv, segment_size=128)
         enc = cipher.encrypt(padded)[:len(message_string)]
         return base64.b64encode(iv + enc).decode()
-    except Error as e:
+    except Exception as e:
         print(e)
         return False
 
 
 def decrypt_string(key_string: str, message_string: str, rounds: int) -> str:
-
     private_key = key_setup(key_string, rounds)
 
     try:
@@ -67,7 +63,7 @@ def decrypt_string(key_string: str, message_string: str, rounds: int) -> str:
         padded = value.ljust(16, b'\0')
         cipher = AES.new(private_key, AES.MODE_CFB, iv, segment_size=128)
         return cipher.decrypt(padded)[:len(value)].decode()
-    except Error as e:
+    except Exception as e:
         print(e)
         return False
 
@@ -105,7 +101,7 @@ if __name__ == '__main__':
         print(result)
         sys.exit(0)
     else:
-        print('Error')
+        print('Unable to execute operation.')
         sys.exit(1)
 else:
     sys.exit(1)
