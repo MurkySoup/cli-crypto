@@ -39,7 +39,7 @@ Something similiar can also be accomplished via command-line interface using 'op
 # cat /dev/urandom | tr -dc 'a-zA-Z0-9-_@#*()_+{}|:<>?=' | fold -w 32 | head -n 1
 ```
 
-Better passwords can be generated. See: https://github.com/armadillo-field-testing/adv-pwd-gen
+Better passwords can be generated. See: https://github.com/murkysoup/adv-pwd-gen
 
 For data en/decryption operations:
 
